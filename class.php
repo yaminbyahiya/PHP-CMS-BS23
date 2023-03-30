@@ -1,7 +1,7 @@
 <?php
     class Car{
         public $wheels = 4;
-        protected $doors = 4;
+        static $doors = 4;
         public $hood = 1;
         public $engine = 1;
         private $speed = 50;
@@ -19,9 +19,8 @@
             $this->speed = 40;
             echo $this->speed;
         }
-        function makeConvertible(){
-            $this->doors = 2;
-            echo $this->doors;
+        static function makeConvertible(){
+            Car::$doors = 2;
         }
     }
     class Jet extends Car{
@@ -39,6 +38,7 @@
     echo "<br>";
     $bmw->increaseSpeed();
     echo "<br>";
-    $bmw->makeConvertible();
+    Car::makeConvertible();
+    echo Car::$doors;
     $plane->showSpeed();
 ?>

@@ -5,6 +5,11 @@
         var $hood = 1;
         var $engine = 1;
         var $speed = 50;
+        
+        function __construct(){
+            echo $this->speed;
+            echo "<br>";
+        }
 
         function increaseSpeed(){
             $this->speed = 70;

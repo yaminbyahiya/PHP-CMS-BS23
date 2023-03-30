@@ -19,7 +19,13 @@
             echo $this->doors;
         }
     }
+    class Jet extends Car{
+        var $wheels = 10;
+    }
     $bmw = new Car();
+    $plane = new Jet();
+    echo $plane->wheels;
+    echo "<br>";
     echo $bmw->hood;
     echo "<br>";
     echo $bmw->engine;

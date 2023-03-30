@@ -1,10 +1,10 @@
 <?php
     class Car{
-        var $wheels = 4;
-        var $doors = 4;
-        var $hood = 1;
-        var $engine = 1;
-        var $speed = 50;
+        public $wheels = 4;
+        protected $doors = 4;
+        public $hood = 1;
+        public $engine = 1;
+        private $speed = 50;
         
         function __construct(){
             echo $this->speed;
@@ -25,7 +25,9 @@
         }
     }
     class Jet extends Car{
-        var $wheels = 10;
+        function showSpeed(){
+            echo $this->speed;
+        }
     }
     $bmw = new Car();
     $plane = new Jet();
@@ -38,4 +40,5 @@
     $bmw->increaseSpeed();
     echo "<br>";
     $bmw->makeConvertible();
+    $plane->showSpeed();
 ?>

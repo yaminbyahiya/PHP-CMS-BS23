@@ -16,12 +16,26 @@
                             Welcome to Admin
                             <small>Author</small>
                         </h1>
-
+                        <?php
+                            if(isset($_POST["submit"])){
+                                $cat_title=$_POST["cat_title"];
+                                if(empty($cat_title)){
+                                    echo "All Fields Must be Filled!";
+                                }else{
+                                    $query = "INSERT INTO category(cat_title) VALUE('$cat_title')";
+                                    $cat_add_result = mysqli_query($connection, $query);
+        
+                                    if(!$cat_add_result){
+                                        die("Query Failed ". mysqli_error());
+                                    }
+                                }
+                            }
+                        ?>
                         <div class="col-xs-6">
-                            <form action="">
+                            <form action="" method="post">
                                 <div class="form-group">
-                                    <label for="cat-title">Add Category!</label>
-                                    <input type="text" class="form-control" name="cat-title">
+                                    <label for="cat_title">Add Category!</label>
+                                    <input type="text" class="form-control" name="cat_title">
                                 </div>
                                 <div class="form-group">
                                     <input class="btn btn-primary" type="submit" name="submit" value="Add Category!">

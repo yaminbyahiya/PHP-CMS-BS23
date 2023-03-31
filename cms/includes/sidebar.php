@@ -1,9 +1,23 @@
+<?php
+    include "db.php";
+?>
 <div class="col-md-4">
 
                 <!-- Blog Search Well -->
                 <?php
                 if(isset($_POST["submit"])){
-                    echo $_POST["search"];
+                    $search = $_POST["search"];
+                    $query = "SELECT * FROM posts WHERE post_tags LIKE '%$search%'";
+                    $result = mysqli_query($connection, $query);
+                    if(!$result){
+                        die("Query Failed".mysqli_error());
+                    }
+                    $count = mysqli_num_rows($result);
+                    if($count==0){
+                        echo "<h1>No result found!</h1>";
+                    }else{
+                        echo "<h1>Some result found!</h1>";
+                    }
                 }
                 ?>
                 <div class="well">

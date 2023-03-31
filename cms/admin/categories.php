@@ -48,6 +48,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Category</th>
+                                        <th>Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,7 +64,21 @@
                                                 echo "<tr>";
                                                 echo "<th>$cat_id</th>";
                                                 echo "<th>$cat_title</th>";
+                                                echo "<th><a href='categories.php?delete=$cat_id'>Delete</a></th>";
                                                 echo "</tr>";
+                                            }
+                                        }
+                                    ?>
+                                    <?php
+                                        if(isset($_GET["delete"])){
+                                            $id = $_GET["delete"];
+                                            $query = "DELETE FROM category WHERE cat_id=$id";
+                                            $delete_result = mysqli_query($connection, $query);
+                                            header("Location: categories.php");
+                                            if(!$delete_result){
+                                                die("Deletion Failed ". mysqli_error());
+                                            }else{
+                                                echo "Deletion Successful";
                                             }
                                         }
                                     ?>

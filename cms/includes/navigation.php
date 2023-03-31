@@ -24,9 +24,10 @@
                             echo "<li> <a href='#'> {$category_title} </a> </li>";
                         }
                     ?>
-                    <!-- <li>
-                        <a href="#">About</a>
+                    <li>
+                        <a href="admin/">Admin Panel</a>
                     </li>
+                    <!--
                     <li>
                         <a href="#">Services</a>
                     </li>

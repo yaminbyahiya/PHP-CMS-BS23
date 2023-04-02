@@ -42,10 +42,19 @@
                     echo "<td>$post_comment_count</td>";
                     // echo "<td>$post_content</td>";
                     echo "<td>$post_date</td>";
+                    echo "<td><a href='./posts.php?delete=$id'>Delete</a></td>";
                 echo "</tr>";
                 }
             }
             
+        ?>
+        <?php
+            if(isset($_GET["delete"])){
+                $delete_post_id=$_GET["delete"];
+                $query="DELETE FROM posts WHERE id='$delete_post_id'";
+                $result = mysqli_query($connection, $query);
+                header("Location: ./posts.php");
+            }
         ?>
     </tbody>
 </table>

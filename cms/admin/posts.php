@@ -25,11 +25,11 @@
                                 $source=" ";
                             }
                             switch($source){
-                                case "view";
-                                    include "includes/view_all_posts.php";
-                                    break;
                                 case "add_post";
                                     include "add_posts.php";
+                                    break;
+                                default:
+                                    include "includes/view_all_posts.php";
                                     break;
                             }
                         ?>

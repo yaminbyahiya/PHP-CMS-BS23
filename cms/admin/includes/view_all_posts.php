@@ -36,7 +36,8 @@
                     echo "<td>$post_title</td>";
                     echo "<td>$cat_id</td>";
                     echo "<td>$post_status</td>";
-                    echo "<td>$post_image</td>";
+                    echo "<td><img src='../images/$post_image' alt='Post Image'></td>";
+                    // echo "<td>$post_image</td>";
                     echo "<td>$post_tags</td>";
                     echo "<td>$post_comment_count</td>";
                     // echo "<td>$post_content</td>";
@@ -44,6 +45,7 @@
                 echo "</tr>";
                 }
             }
+            
         ?>
     </tbody>
 </table>

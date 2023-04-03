@@ -17,7 +17,10 @@
             <div class="col-md-8">
                 
                 <?php
-                    $query = "SELECT * FROM posts";
+                    if(isset($_GET["category"])){
+                        $category_id=$_GET["category"];
+                    }
+                    $query = "SELECT * FROM posts WHERE category_id=$category_id";
                     $result = mysqli_query($connection, $query);
                     while($row = mysqli_fetch_assoc($result)){
                         $post_id=$row["id"];

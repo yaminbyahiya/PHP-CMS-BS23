@@ -49,7 +49,8 @@
                                 <?php
                                     while($row = mysqli_fetch_assoc($result_category)){
                                         $category_title = $row["cat_title"];
-                                        echo "<li> <a href='#'> {$category_title} </a> </li>";
+                                        $category_id = $row["cat_id"];
+                                        echo "<li> <a href='category.php?category=$category_id'> {$category_title} </a> </li>";
                                     }
                                 ?>
                             </ul>

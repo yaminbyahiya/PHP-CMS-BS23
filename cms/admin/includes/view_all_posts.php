@@ -34,7 +34,15 @@
                     echo "<td>$id</td>";
                     echo "<td>$post_author</td>";
                     echo "<td>$post_title</td>";
-                    echo "<td>$cat_id</td>";
+
+                    $query_cat_id="SELECT * FROM category WHERE cat_id=$cat_id";
+                    $result_cat_id=mysqli_query($connection, $query_cat_id);
+                    while($row=mysqli_fetch_assoc($result_cat_id)){
+                        $cat_id=$row["cat_id"];
+                        $cat_title=$row["cat_title"];
+                        echo "<td>$cat_title</td>";
+                    }
+
                     echo "<td>$post_status</td>";
                     echo "<td><img src='../images/$post_image' alt='Post Image'></td>";
                     // echo "<td>$post_image</td>";

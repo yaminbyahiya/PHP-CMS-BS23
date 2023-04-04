@@ -19,6 +19,17 @@
             $user_role=$row["user_role"];
         }
     }
+    if(isset($_POST["edit_user"])){
+        $user_name=$_POST["user_name"];
+        $user_firstname=$_POST["user_firstname"];
+        $user_lastname=$_POST["user_lastname"];
+        $user_role=$_POST["user_role"];
+        $user_email=$_POST["user_email"];
+        $user_password=$_POST["user_password"];
+        $edit_user_query = "UPDATE users SET user_name='$user_name', user_firstname='$user_firstname', user_lastname='$user_lastname', user_role='$user_role', user_email='$user_email', user_password='$user_password' WHERE user_name='$user_name'";
+        $edit_update_result = mysqli_query($connection, $edit_user_query);
+        confirmQuery($edit_update_result);
+    }
 ?>
     <div id="wrapper">
 

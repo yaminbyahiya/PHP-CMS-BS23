@@ -1,6 +1,6 @@
 <?php 
     include "includes/header.php";
-    include "functions.php";
+    // include "functions.php";
 ?>
     <div id="wrapper">
 

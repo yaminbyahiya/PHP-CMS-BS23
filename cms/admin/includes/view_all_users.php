@@ -54,7 +54,7 @@
                     // echo "<td>$post_image</td>"; 
                     echo "<td><a href='./users.php?changetoadmin=$user_id'>Change to Admin</a></td>";
                     echo "<td><a href='./users.php?changetosub=$user_id'>Change to Sub</a></td>";
-                    // echo "<td><a href='./posts.php?source=edit_post&p_id='>Edit</a></td>";
+                    echo "<td><a href='./users.php?source=edit_user&edit_user=$user_id'>Edit User</a></td>";
                     echo "<td><a href='./users.php?delete=$user_id'>Delete</a></td>";
                 echo "</tr>";
                 }

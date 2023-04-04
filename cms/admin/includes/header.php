@@ -7,10 +7,8 @@
     include "./functions.php";
 ?>
 <?php 
-    if(isset($_SESSION["user_role"])){
-        if($_SESSION["user_role"] !== "admin"){
-            header("Location: ../index.php");
-        }
+    if(!isset($_SESSION["user_role"])){
+        header("Location: ../index.php");
     }
 ?>
 <!DOCTYPE html>

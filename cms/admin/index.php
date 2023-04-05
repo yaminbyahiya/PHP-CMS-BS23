@@ -130,7 +130,10 @@
                     </div>
                 </div>
                 <?php
-                    $query_post = "SELECT * FROM posts WHERE post_status = 'draft'";
+                    $query_published_post = "SELECT * FROM posts WHERE post_status = 'Published'";
+                    $select_published_post = mysqli_query($connection, $query_published_post);
+                    $select_published_post_count = mysqli_num_rows($select_published_post);
+                    $query_post = "SELECT * FROM posts WHERE post_status = 'Draft'";
                     $select_draft_post = mysqli_query($connection, $query_post);
                     $select_draft_post_count = mysqli_num_rows($select_draft_post);
                     $query_comment = "SELECT * FROM comments WHERE comment_status = 'unapproved'";
@@ -149,8 +152,8 @@
                         var data = google.visualization.arrayToDataTable([
                         ['Data', 'Count'],
                         <?php
-                            $element_text=['Active Posts', 'Draft Posts', 'Categories', 'Users', 'Subscribers', 'Comments', 'Pending Comments'];
-                            $element_count=[$post_counts, $select_draft_post_count, $category_count, $users_count, $select_unapproved_sub_count, $comment_count, $select_unapproved_comment_count];
+                            $element_text=['All Posts', 'Active Posts', 'Draft Posts', 'Categories', 'Users', 'Subscribers', 'Comments', 'Pending Comments'];
+                            $element_count=[$post_counts, $select_published_post_count,  $select_draft_post_count, $category_count, $users_count, $select_unapproved_sub_count, $comment_count, $select_unapproved_comment_count];
                             for($i=0; $i<7; $i++){
                                 echo "['$element_text[$i]'" . ",". "$element_count[$i]],";
                             }

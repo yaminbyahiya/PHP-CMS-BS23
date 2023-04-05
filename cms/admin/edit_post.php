@@ -43,6 +43,7 @@
         $query = "UPDATE posts SET category_id=$post_cat_id, post_title='$post_title', post_author='$post_author', post_date=now(), post_image='$post_image', post_content='$post_content', post_tags='$post_tags', post_comment_count=$post_comment_count, post_status='$post_status' WHERE id=$edit_post_id";
         $post_update_result = mysqli_query($connection, $query);
         confirmQuery($post_update_result);
+        echo "<p class='bg-success'>Post Updated. <a href='../post.php?p_id=$edit_post_id'>View Post</a> or <a href='posts.php'>Edit More Posts</a></p>";  
     }
 
 ?>
@@ -69,6 +70,18 @@
     <div class="form-group">
         <label for="post_author">Post Author</label>
         <input value="<?php echo $post_author ?>" type="text" class="form-control" name="author">
+    </div>
+    <div class="form-group">
+        <select name="post_status" id="">
+            <option value="<?php echo $post_status; ?>"><?php echo $post_status; ?></option>
+            <?php 
+                if($post_status == 'Published'){
+                   echo "<option value='Draft'>Draft</option>";
+                }else{
+                    echo "<option value='Published'>Published</option>";
+                }
+            ?>
+        </select>
     </div>
     <div class="form-group">
         <label for="post_status">Post Status</label>

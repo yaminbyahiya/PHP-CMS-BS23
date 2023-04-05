@@ -15,6 +15,7 @@
         $query = "INSERT INTO users(user_firstname, user_lastname, user_role, user_name, user_email, user_password) VALUES ('$user_firstname', '$user_lastname', '$user_role', '$user_name', '$user_email', '$user_password')";
         $user_add_result = mysqli_query($connection, $query);
         confirmQuery($user_add_result);
+        echo "User Created: "."<a href='users.php'>View Users</a>";
     }
 ?>
 

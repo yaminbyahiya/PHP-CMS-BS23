@@ -14,6 +14,8 @@
         $query = "INSERT INTO posts(category_id, post_title, post_author, post_date, post_image, post_content, post_tags, post_status) VALUES ($post_cat_id, '$post_title', '$post_author', now(), '$post_image', '$post_content', '$post_tags', '$post_status')";
         $post_add_result = mysqli_query($connection, $query);
         confirmQuery($post_add_result);
+        $add_post_id=mysqli_insert_id($connection);
+        echo "<p class='bg-success'>Post Updated. <a href='../post.php?p_id=$add_post_id'>View Post</a> or <a href='posts.php?source=add_post'>Add More Posts</a></p>";
     }
 ?>
 

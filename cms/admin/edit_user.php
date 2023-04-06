@@ -24,7 +24,16 @@
             $user_role=$_POST["user_role"];
             $user_email=$_POST["user_email"];
             $user_password=$_POST["user_password"];
-            $edit_user_query = "UPDATE users SET user_name='$user_name', user_firstname='$user_firstname', user_lastname='$user_lastname', user_role='$user_role', user_email='$user_email', user_password='$user_password' WHERE user_id='$user_id'";
+            $query = "SELECT randSalt FROM users";
+            $select_randsalt_query = mysqli_query($connection, $query);
+            if(!$select_randsalt_query){
+                die("Query Failed". mysqli_error($connection));
+            }else{
+                $row = mysqli_fetch_array($select_randsalt_query);
+                $salt = $row["randSalt"];
+                $hashed_password = crypt($user_password, $salt);
+            }
+            $edit_user_query = "UPDATE users SET user_name='$user_name', user_firstname='$user_firstname', user_lastname='$user_lastname', user_role='$user_role', user_email='$user_email', user_password='$hashed_password' WHERE user_id='$user_id'";
             $edit_update_result = mysqli_query($connection, $edit_user_query);
             confirmQuery($edit_update_result);
         }
@@ -63,7 +72,7 @@
     </div>
     <div class="form-group">
         <select name="user_role" id="">
-            <option value="subscriber"><?php echo $user_role; ?></option>
+            <option value="<?php echo $user_role; ?>"><?php echo $user_role; ?></option>
             <?php 
                 if($user_role == 'admin'){
                     echo "<option value='subsciber'>Subscriber</option>";

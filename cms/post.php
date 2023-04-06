@@ -62,15 +62,19 @@
                         $comment_author=$_POST["comment_author"];
                         $comment_email=$_POST["comment_email"];
                         $comment_content=$_POST["comment_content"];
-                        $query="INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) VALUES ($post_id, '$comment_author', '$comment_email', '$comment_content', 'unapproved', now())";
-                        $create_comment=mysqli_query($connection, $query);
-                        if(!$create_comment){
-                            die("Query Failed". mysqli_error($connection));
-                        }
-                        $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 WHERE id=$post_id";
-                        $count_query_result=mysqli_query($connection, $query);
-                        if(!$count_query_result){
-                            die("Query Failed". mysqli_error($connection));
+                        if(!empty($comment_author) && !empty($comment_email) && !empty($comment_content)){
+                            $query="INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) VALUES ($post_id, '$comment_author', '$comment_email', '$comment_content', 'unapproved', now())";
+                            $create_comment=mysqli_query($connection, $query);
+                            if(!$create_comment){
+                                die("Query Failed". mysqli_error($connection));
+                            }
+                            $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 WHERE id=$post_id";
+                            $count_query_result=mysqli_query($connection, $query);
+                            if(!$count_query_result){
+                                die("Query Failed". mysqli_error($connection));
+                            }
+                        }else{
+                            echo "<script>alert('Fields cannot be empty!')</script>";
                         }
                     }
                 ?>

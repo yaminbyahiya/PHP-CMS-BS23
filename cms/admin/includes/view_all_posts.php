@@ -1,32 +1,53 @@
 <?php
- if(isset($_POST["checkBoxArray"])){
-    foreach($_POST["checkBoxArray"] as $checkBoxValue){
-        $bulk_options=$_POST["bulk_options"];
-        switch($bulk_options){
-            case "Published":
-                $query = "UPDATE posts SET post_status = '$bulk_options' WHERE id=$checkBoxValue";
-                $status_update_result = mysqli_query($connection, $query);
-                if(!$status_update_result){
-                    die("Query Failed". mysqli_error($connection));
-                }
-                break;
-            case "Draft":
-                $query = "UPDATE posts SET post_status = '$bulk_options' WHERE id=$checkBoxValue";
-                $status_update_result = mysqli_query($connection, $query);
-                if(!$status_update_result){
-                    die("Query Failed". mysqli_error($connection));
-                }
-                break;
-            case "Delete":
-                $query = "DELETE FROM posts WHERE id=$checkBoxValue";
-                $status_update_result = mysqli_query($connection, $query);
-                if(!$status_update_result){
-                    die("Query Failed". mysqli_error($connection));
-                }
-                break;
+    if(isset($_POST["checkBoxArray"])){
+        foreach($_POST["checkBoxArray"] as $checkBoxValue){
+            $bulk_options=$_POST["bulk_options"];
+            switch($bulk_options){
+                case "Published":
+                    $query = "UPDATE posts SET post_status = '$bulk_options' WHERE id=$checkBoxValue";
+                    $status_update_result = mysqli_query($connection, $query);
+                    if(!$status_update_result){
+                        die("Query Failed". mysqli_error($connection));
+                    }
+                    break;
+                case "Draft":
+                    $query = "UPDATE posts SET post_status = '$bulk_options' WHERE id=$checkBoxValue";
+                    $status_update_result = mysqli_query($connection, $query);
+                    if(!$status_update_result){
+                        die("Query Failed". mysqli_error($connection));
+                    }
+                    break;
+                case "Delete":
+                    $query = "DELETE FROM posts WHERE id=$checkBoxValue";
+                    $status_update_result = mysqli_query($connection, $query);
+                    if(!$status_update_result){
+                        die("Query Failed". mysqli_error($connection));
+                    }
+                    break;
+                case "Clone":
+                    $query = "SELECT * FROM posts WHERE id=$checkBoxValue";
+                    $select_post_query = mysqli_query($connection, $query);
+                    while($row = mysqli_fetch_assoc($select_post_query)){
+                        $id=$row["id"];
+                        $cat_id=$row["category_id"];
+                        $post_author=$row["post_author"];
+                        $post_title=$row["post_title"];
+                        $post_date=$row["post_date"];
+                        $post_image=$row["post_image"];
+                        $post_content=$row["post_content"];
+                        $post_tags=$row["post_tags"];
+                        $post_comment_count=$row["post_comment_count"];
+                        $post_status=$row["post_status"];
+                    }
+                    $query = "INSERT INTO posts(category_id, post_title, post_author, post_date, post_image, post_content, post_tags, post_status) VALUES ($cat_id, '$post_title', '$post_author', '$post_date', '$post_image', '$post_content', '$post_tags', '$post_status')";
+                    $clone_result = mysqli_query($connection, $query);
+                    if(!$clone_result){
+                        die("Query Failed". mysqli_error($connection));
+                    }
+                    break;
+            }
         }
     }
- }
 ?>
 
 <form action="" method="post">
@@ -37,6 +58,7 @@
                 <option value="Published">Publish</option>
                 <option value="Draft">Draft</option>
                 <option value="Delete">Delete</option>
+                <option value="Clone">Clone</option>
             </select>
         </div>
         <div class="col-xs-4">
@@ -62,10 +84,10 @@
         </thead>
         <tbody>
             <?php
-                $query = "SELECT * FROM posts";
+                $query = "SELECT * FROM posts ORDER BY id DESC";
                 $result = mysqli_query($connection, $query);
                 if(!$result){
-                    die("Query Failed". mysqli_error());
+                    die("Query Failed". mysqli_error($connection));
                 }else{
                     while($row = mysqli_fetch_assoc($result)){
                         $id=$row["id"];

@@ -21,6 +21,11 @@
                         $post_id=$_GET["p_id"];
                     }
                     $query = "SELECT * FROM posts WHERE id=$post_id";
+                    $view_query = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE id=$post_id";
+                    $view_query_result=mysqli_query($connection, $view_query);
+                    if(!$view_query_result){
+                        die("Query Failed". mysqli_error($connection));
+                    }
                     $result = mysqli_query($connection, $query);
                     while($row = mysqli_fetch_assoc($result)){
                         $post_title = $row["post_title"];

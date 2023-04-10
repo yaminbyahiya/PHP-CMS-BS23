@@ -5,3 +5,12 @@
 $(document).ready(function(){
     console.log("Hello");
 });
+function loadUserOnline(){
+    $.get("functions.php?onlineusers=result", function(data){
+        $(".usersonline").text(data)
+    });
+}
+// loadUserOnline();
+setInterval(function(){
+    loadUserOnline();
+}, 500)

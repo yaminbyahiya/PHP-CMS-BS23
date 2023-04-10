@@ -1,26 +1,26 @@
 <?php
-// include "db.php";
-// function users_online(){
-//     global $connection;
-//     $session = session_id();
-//     $time = time();
-//     $time_out_in_seconds = 60;
-//     $time_out = $time - $time_out_in_seconds;
-//     $query = "SELECT * FROM users_online WHERE session='$session'";
-//     $send_query = mysqli_query($connection, $query);
-//     $count = mysqli_num_rows($send_query);
-//     if($count==NULL){
-//         $new_session_query="INSERT INTO users_online(session, time) VALUES ('$session', '$time')";
-//         $new_session_query_result = mysqli_query($connection, $new_session_query);
-//     }else{
-//         $new_session_query="UPDATE users_online SET time='$time' WHERE session='$session'";
-//         $new_session_query_result = mysqli_query($connection, $new_session_query);
-//     }
-//     $users_online_query = "SELECT * FROM users_online WHERE time > '$time_out'";
-//     $users_online_query_result = mysqli_query($connection, $users_online_query);
-//     $count_users = mysqli_num_rows($users_online_query_result);
-//     return $count_users;
-// }
+include "db.php";
+function users_online(){
+    global $connection;
+    $session = session_id();
+    $time = time();
+    $time_out_in_seconds = 60;
+    $time_out = $time - $time_out_in_seconds;
+    $query = "SELECT * FROM users_online WHERE session='$session'";
+    $send_query = mysqli_query($connection, $query);
+    $count = mysqli_num_rows($send_query);
+    if($count==NULL){
+        $new_session_query="INSERT INTO users_online(session, time) VALUES ('$session', '$time')";
+        $new_session_query_result = mysqli_query($connection, $new_session_query);
+    }else{
+        $new_session_query="UPDATE users_online SET time='$time' WHERE session='$session'";
+        $new_session_query_result = mysqli_query($connection, $new_session_query);
+    }
+    $users_online_query = "SELECT * FROM users_online WHERE time > '$time_out'";
+    $users_online_query_result = mysqli_query($connection, $users_online_query);
+    $count_users = mysqli_num_rows($users_online_query_result);
+    return $count_users;
+}
 function showAllData(){
     global $connection;
     $query = "SELECT * FROM users";

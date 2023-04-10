@@ -6,7 +6,7 @@
     
     <?php 
         include "includes/navigation.php";
-        include "../functions.php";
+        include "./admin/functions.php";
         $count_users = users_online();
 
     ?>

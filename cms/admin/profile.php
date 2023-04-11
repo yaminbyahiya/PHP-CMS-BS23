@@ -78,7 +78,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="post_tags">Password</label>
-                                <input type="password" value="<?php echo $user_password; ?>" class="form-control" name="user_password">
+                                <input autocomplete="off" type="password" value="<?php //echo $user_password; ?>" class="form-control" name="user_password">
                             </div>
                             <!-- <div class="form-group">
                                 <label for="post_image">Post Image</label>

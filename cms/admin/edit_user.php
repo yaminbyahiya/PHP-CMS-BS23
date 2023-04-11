@@ -24,42 +24,50 @@
             $user_role=$_POST["user_role"];
             $user_email=$_POST["user_email"];
             $user_password=$_POST["user_password"];
-            $query = "SELECT randSalt FROM users";
-            $select_randsalt_query = mysqli_query($connection, $query);
-            if(!$select_randsalt_query){
-                die("Query Failed". mysqli_error($connection));
-            }else{
-                $row = mysqli_fetch_array($select_randsalt_query);
-                $salt = $row["randSalt"];
-                $hashed_password = crypt($user_password, $salt);
+            $post_date = date('d-m-y');
+            if(!empty($user_password)){
+                $query_password = "SELECT user_password FROM users WHERE user_id=$user_id";
+                $get_user_query = mysqli_query($connection, $query_password);
+                if(!$get_user_query){
+                    die("Query Failed". mysqli_fetch_assoc($connection));
+                }else{
+                    $row = mysqli_fetch_array($get_user_query);
+                    $db_user_password = $row["user_password"];
+                }
+                if($db_user_password != $user_password){
+                    $hashed_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 12));
+                }
             }
-            $edit_user_query = "UPDATE users SET user_name='$user_name', user_firstname='$user_firstname', user_lastname='$user_lastname', user_role='$user_role', user_email='$user_email', user_password='$hashed_password' WHERE user_id='$user_id'";
+            $edit_user_query = "UPDATE users SET user_name='$user_name', user_firstname='$user_firstname', user_lastname='$user_lastname', user_role='$user_role', user_email='$user_email', user_password='$hashed_password' WHERE user_id=$user_id";
             $edit_update_result = mysqli_query($connection, $edit_user_query);
             confirmQuery($edit_update_result);
         }
+    }else{
+        header("Location: index.php");
     }
-    if(isset($_POST["edit_user"])){
-        // $user_id=$_POST["user_id"];
-        $user_firstname=$_POST["user_firstname"];
-        $user_lastname=$_POST["user_lastname"];
-        $user_role=$_POST["user_role"];
-        // $post_image=$_FILES["image"]["name"];
-        // $post_image_temp=$_FILES["image"]["tmp_name"];
-        $user_name=$_POST["user_name"];
-        $user_email=$_POST["user_email"];
-        $user_password=$_POST["user_password"];
-        // $post_date=date("d-m-y");
-        // $post_comment_count=4;
-        // move_uploaded_file($post_image_temp, "../images/$post_image");
-        $query = "INSERT INTO users(user_firstname, user_lastname, user_role, user_name, user_email, user_password) VALUES ('$user_firstname', '$user_lastname', '$user_role', '$user_name', '$user_email', '$user_password')";
-        $user_add_result = mysqli_query($connection, $query);
-        confirmQuery($user_add_result);
-    }
+    // if(isset($_POST["edit_user"])){
+    //     // $user_id=$_POST["user_id"];
+    //     $user_firstname=$_POST["user_firstname"];
+    //     $user_lastname=$_POST["user_lastname"];
+    //     $user_role=$_POST["user_role"];
+    //     // $post_image=$_FILES["image"]["name"];
+    //     // $post_image_temp=$_FILES["image"]["tmp_name"];
+    //     $user_name=$_POST["user_name"];
+    //     $user_email=$_POST["user_email"];
+    //     $user_password=$_POST["user_password"];
+    //     // $post_date=date("d-m-y");
+    //     // $post_comment_count=4;
+    //     // move_uploaded_file($post_image_temp, "../images/$post_image");
+    //     $query = "INSERT INTO users(user_firstname, user_lastname, user_role, user_name, user_email, user_password) VALUES ('$user_firstname', '$user_lastname', '$user_role', '$user_name', '$user_email', '$user_password')";
+    //     $user_add_result = mysqli_query($connection, $query);
+    //     confirmQuery($user_add_result);
+    // }
 ?>
 
 <form action="" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="post_author">Username</label>
+        <?php echo $user_id; ?>
         <input type="text" value="<?php echo $username; ?>" class="form-control" name="user_name">
     </div>
     <div class="form-group">
@@ -88,7 +96,7 @@
     </div>
     <div class="form-group">
         <label for="post_tags">Password</label>
-        <input type="password" value="<?php echo $user_password; ?>" class="form-control" name="user_password">
+        <input autocomplete="off" type="password" value="<?php //echo $user_password; ?>" class="form-control" name="user_password">
     </div>
     <!-- <div class="form-group">
         <label for="post_image">Post Image</label>

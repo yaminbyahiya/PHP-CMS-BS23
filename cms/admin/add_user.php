@@ -9,6 +9,7 @@
         $user_name=$_POST["user_name"];
         $user_email=$_POST["user_email"];
         $user_password=$_POST["user_password"];
+        $user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
         // $post_date=date("d-m-y");
         // $post_comment_count=4;
         // move_uploaded_file($post_image_temp, "../images/$post_image");

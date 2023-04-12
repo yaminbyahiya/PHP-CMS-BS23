@@ -63,10 +63,14 @@
         ?>
         <?php
             if(isset($_GET["delete"])){
-                $delete_user_id=$_GET["delete"];
-                $query="DELETE FROM users WHERE user_id='$delete_user_id'";
-                $result = mysqli_query($connection, $query);
-                header("Location: ./users.php");
+                if(isset($_SESSION["user_role"])){
+                    if($_SESSION["user_role"]=="admin"){
+                        $delete_user_id=$_GET["delete"];
+                        $query="DELETE FROM users WHERE user_id='$delete_user_id'";
+                        $result = mysqli_query($connection, $query);
+                        header("Location: ./users.php");
+                    }
+                }
             }
             if(isset($_GET["changetoadmin"])){
                 $admin_user_id=$_GET["changetoadmin"];

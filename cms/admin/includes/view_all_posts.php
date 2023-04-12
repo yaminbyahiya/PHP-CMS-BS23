@@ -120,7 +120,15 @@
                         echo "<td><img src='../images/$post_image' alt='Post Image'></td>";
                         // echo "<td>$post_image</td>";
                         echo "<td>$post_tags</td>";
-                        echo "<td>$post_comment_count</td>";
+                        $query = "SELECT * FROM comments WHERE comment_post_id=$id";
+                        $send_comment_query = mysqli_query($connection, $query);
+                        if(!$send_comment_query){
+                            die("Query Failed". mysqli_error($connection));
+                        }
+                        $row = mysqli_fetch_array($send_comment_query);
+                        $comment_id = $row["comment_id"];
+                        $count_comments = mysqli_num_rows($send_comment_query);
+                        echo "<td><a href='post_comments.php?id=$id'>$count_comments</a></td>";
                         // echo "<td>$post_content</td>";
                         echo "<td>$post_date</td>";
                         echo "<td><a href='../post.php?p_id=$id'>View Post</a></td>";

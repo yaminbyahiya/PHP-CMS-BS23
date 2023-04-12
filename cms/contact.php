@@ -8,34 +8,9 @@
     
 <?php 
     if(isset($_POST["submit"])){
-        $username=$_POST["username"];
-        $email=$_POST["email"];
-        $password=$_POST["password"];
-        if(!empty($username) && !empty($email) && !empty($password)){
-            $username=mysqli_real_escape_string($connection, $username);
-            $email=mysqli_real_escape_string($connection, $email);
-            $password=mysqli_real_escape_string($connection, $password);
-            $password = password_hash($password, PASSWORD_BCRYPT, array('cost'=>12));
-            $query = "SELECT randSalt FROM users";
-            $select_randsalt_query = mysqli_query($connection, $query);
-            // if(!$select_randsalt_query){
-            //     die("Query Failed". mysqli_error($connection));
-            // }
-            // $row=mysqli_fetch_assoc($select_randsalt_query);
-            // $salt=$row["randSalt"];
-            // $password = crypt($password, $salt);
-            $query = "INSERT INTO users (user_name, user_email, user_password, user_role) VALUES ('$username', '$email', '$password', 'subscriber')";
-            $register_user_query=mysqli_query($connection, $query);
-            if(!$register_user_query){
-                die("Query Failed". mysqli_error($connection));
-            }
-            $message = "Registration Successful";
-        }else{
-            // echo "<script>alert('Fields cannot be empty!')</script>";
-            $message= "Fields cannot be empty!";
-        }
-    }else{
-        $message = "";
+        $to="pantherb143@gmail.com";
+        $subject=$_POST["subject"];
+        $body=$_POST["body"];
     }
 ?>
     <!-- Page Content -->
@@ -47,7 +22,7 @@
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="form-wrap">
                 <h1>Contact</h1>
-                <h6><?php echo $message ?></h6>
+                <!-- <h6><?php echo $message ?></h6> -->
                     <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
                          <div class="form-group">
                             <label for="email" class="sr-only">Email</label>
@@ -55,7 +30,7 @@
                         </div>
                         <div class="form-group">
                             <label for="subject" class="sr-only">Subject</label>
-                            <input type="email" name="subject" id="subject" class="form-control" placeholder="Enter Subject">
+                            <input type="text" name="subject" id="subject" class="form-control" placeholder="Enter Subject">
                         </div>
                          <div class="form-group">
                             <textarea class="form-control" name="body" id="body"></textarea>

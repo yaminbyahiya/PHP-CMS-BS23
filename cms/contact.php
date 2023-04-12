@@ -11,6 +11,8 @@
         $to="pantherb143@gmail.com";
         $subject=$_POST["subject"];
         $body=$_POST["body"];
+        $header=$_POST["email"];
+        mail($to, $subject, $body, $header);
     }
 ?>
     <!-- Page Content -->

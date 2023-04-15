@@ -26,6 +26,11 @@
                     if(!$view_query_result){
                         die("Query Failed". mysqli_error($connection));
                     }
+                    if(isset($_SESSION["user_role"]) && $_SESSION["user_role"]=="admin"){
+                        $query="SELECT * FROM posts WHERE id='$post_id'";
+                    }else{
+                        $query="SELECT * FROM posts WHERE id='$post_id' AND post_status='Published'";
+                    }
                     $result = mysqli_query($connection, $query);
                     while($row = mysqli_fetch_assoc($result)){
                         $post_title = $row["post_title"];

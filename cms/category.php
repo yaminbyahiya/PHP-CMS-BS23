@@ -20,8 +20,15 @@
                     if(isset($_GET["category"])){
                         $category_id=$_GET["category"];
                     }
-                    $query = "SELECT * FROM posts WHERE category_id=$category_id";
+                    if(isset($_SESSION["user_role"]) && $_SESSION["user_role"]=="admin"){
+                        $query = "SELECT * FROM posts WHERE category_id=$category_id";
+                    }else{
+                        $query = "SELECT * FROM posts WHERE category_id=$category_id AND post_status='Published'";
+                    }
                     $result = mysqli_query($connection, $query);
+                    if(mysqli_num_rows($result) < 1){
+                        echo "<h1 class='text-center'>No Post Found</h1>";
+                    }
                     while($row = mysqli_fetch_assoc($result)){
                         $post_id=$row["id"];
                         $post_title = $row["post_title"];

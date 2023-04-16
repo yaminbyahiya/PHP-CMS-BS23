@@ -20,9 +20,18 @@
                         $query = "SELECT * FROM category";
                         $result = mysqli_query($connection, $query);
                         while($row = mysqli_fetch_assoc($result)){
+                            $category_class = "";
+                            $registration_class = "";
+                            $PageName = basename($_SERVER["PHP_SELF"]);
+                            $registration_page = "registration.php";
                             $cat_id = $row["cat_id"];
                             $category_title = $row["cat_title"];
-                            echo "<li> <a href='category.php?category=$cat_id'> {$category_title} </a> </li>";
+                            if(isset($_GET["category"]) && $_GET["category"]=="$cat_id"){
+                                $category_class="active";
+                            }else if($PageName == $registration_page){
+                                $registration_class = "active";
+                            }
+                            echo "<li class='$category_class'> <a href='category.php?category=$cat_id'> {$category_title} </a> </li>";
                         }
                     ?>
                     <li>
@@ -30,6 +39,9 @@
                     </li>
                     <li>
                         <a href="contact.php">Contact</a>
+                    </li>
+                    <li class='<?php echo $registration_class; ?>'>;
+                        <a href="registration.php">Registration</a>
                     </li>
                     <?php 
                         if(isset($_SESSION["user_role"])){

@@ -29,14 +29,23 @@
                     }else{
                         $page_1=($page*5)-5;
                     }
-                    $post_count_query = "SELECT * FROM posts WHERE post_status='Published'";
+                    if(isset($_SESSION["user_role"]) && $_SESSION["user_role"]=="admin"){
+                        $post_count_query = "SELECT * FROM posts";
+                    }else{
+                        $post_count_query = "SELECT * FROM posts WHERE post_status='Published'";
+                    }
                     $find_count = mysqli_query($connection, $post_count_query);
                     $count = mysqli_num_rows($find_count);
                     if($count < 1){
                         echo "<h1 class='text-center'>No Post Found</h1>";
                     }
                     $count = ceil($count / 5);
-                    $query = "SELECT * FROM posts WHERE post_status='Published' LIMIT $page_1,5";
+                    if(isset($_SESSION["user_role"]) && $_SESSION["user_role"]=="admin"){
+                        $query = "SELECT * FROM posts LIMIT $page_1,5";
+                    }else{
+                        $query = "SELECT * FROM posts WHERE post_status='Published' LIMIT $page_1,5";
+                    }
+                    // $query = "SELECT * FROM posts WHERE post_status='Published' LIMIT $page_1,5";
                     $result = mysqli_query($connection, $query);
                     while($row = mysqli_fetch_assoc($result)){
                         $post_id=$row["id"];

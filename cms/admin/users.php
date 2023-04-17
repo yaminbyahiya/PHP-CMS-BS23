@@ -1,5 +1,10 @@
 <?php 
     include "includes/header.php";
+    if(isset($_SESSION["username"])){
+        if(!is_admin($_SESSION["username"])){
+            header("Location: ../index.php");
+        }
+    }
     // include "functions.php";
 ?>
     <div id="wrapper">

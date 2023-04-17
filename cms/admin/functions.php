@@ -102,4 +102,65 @@
         $result = mysqli_query($connection, $query);
         return mysqli_num_rows($result);
     }
+    function is_admin($username){
+        global $connection;
+        $query = "SELECT user_role FROM users WHERE user_name='$username'";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+        $row = mysqli_fetch_array($result);
+        if($row["user_role"]=="admin"){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function username_exists($username){
+        global $connection;
+        $query = "SELECT user_name FROM users WHERE user_name='$username'";
+        $result = mysqli($connection, $query);
+        $number_of_users = mysqli_num_rows($result);
+        if($number_of_users > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function email_exists($email){
+        global $connection;
+        $query = "SELECT user_email FROM users WHERE user_email='$email'";
+        $result = mysqli($connection, $query);
+        $number_of_email = mysqli_num_rows($result);
+        if($number_of_email > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function register_user($username, $email, $password){
+        global $connection;
+
+        if(!empty($username) && !empty($email) && !empty($password)){
+            $username=mysqli_real_escape_string($connection, $username);
+            $email=mysqli_real_escape_string($connection, $email);
+            $password=mysqli_real_escape_string($connection, $password);
+            $password = password_hash($password, PASSWORD_BCRYPT, array('cost'=>12));
+            $query = "SELECT randSalt FROM users";
+            $select_randsalt_query = mysqli_query($connection, $query);
+            // if(!$select_randsalt_query){
+            //     die("Query Failed". mysqli_error($connection));
+            // }
+            // $row=mysqli_fetch_assoc($select_randsalt_query);
+            // $salt=$row["randSalt"];
+            // $password = crypt($password, $salt);
+            $query = "INSERT INTO users (user_name, user_email, user_password, user_role) VALUES ('$username', '$email', '$password', 'subscriber')";
+            $register_user_query=mysqli_query($connection, $query);
+            if(!$register_user_query){
+                die("Query Failed". mysqli_error($connection));
+            }
+            $message = "Registration Successful";
+        }else{
+            // echo "<script>alert('Fields cannot be empty!')</script>";
+            $message= "Fields cannot be empty!";
+        }
+    }
 ?>

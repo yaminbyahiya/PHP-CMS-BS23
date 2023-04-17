@@ -1,5 +1,6 @@
 <?php 
     include "db.php";
+    ob_start();
     session_start();
     $_SESSION["username"]=null;
     $_SESSION["firstname"]=null;

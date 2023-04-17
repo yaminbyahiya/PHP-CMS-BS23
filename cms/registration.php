@@ -8,31 +8,31 @@
     
 <?php 
     if(isset($_POST["submit"])){
-        $username=$_POST["username"];
-        $email=$_POST["email"];
-        $password=$_POST["password"];
-        if(!empty($username) && !empty($email) && !empty($password)){
-            $username=mysqli_real_escape_string($connection, $username);
-            $email=mysqli_real_escape_string($connection, $email);
-            $password=mysqli_real_escape_string($connection, $password);
-            $password = password_hash($password, PASSWORD_BCRYPT, array('cost'=>12));
-            $query = "SELECT randSalt FROM users";
-            $select_randsalt_query = mysqli_query($connection, $query);
-            // if(!$select_randsalt_query){
-            //     die("Query Failed". mysqli_error($connection));
-            // }
-            // $row=mysqli_fetch_assoc($select_randsalt_query);
-            // $salt=$row["randSalt"];
-            // $password = crypt($password, $salt);
-            $query = "INSERT INTO users (user_name, user_email, user_password, user_role) VALUES ('$username', '$email', '$password', 'subscriber')";
-            $register_user_query=mysqli_query($connection, $query);
-            if(!$register_user_query){
-                die("Query Failed". mysqli_error($connection));
-            }
-            $message = "Registration Successful";
-        }else{
-            // echo "<script>alert('Fields cannot be empty!')</script>";
-            $message= "Fields cannot be empty!";
+        $username=trim($_POST["username"]);
+        $email=trim($_POST["email"]);
+        $password=trim($_POST["password"]);
+        $error = [
+            "username" => "",
+            "email" => "",
+            "password" => "",
+        ];
+        if(strlen($username)<4){
+            $error["username"] = "Username needs to be longer";
+        }
+        if($username==""){
+            $error["username"] = "Username cannot be empty";
+        }
+        if(username_exists($username)){
+            $error["username"] = "Username already exists";
+        }
+        if($email==""){
+            $error["email"] = "Email cannot be empty";
+        }
+        if(email_exists($email)){
+            $error["email"] = "Email already exists. <a href='index.php'>Please Log In</a>";
+        }
+        if($password==""){
+            $error["password"] = "Password cannot be empty";
         }
     }else{
         $message = "";

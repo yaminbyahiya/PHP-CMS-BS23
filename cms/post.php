@@ -123,6 +123,11 @@
                     }
                 ?>
                 <!-- Comment -->
+                <?php 
+                    if(!$comment_author && !$comment_content && !$comment_date){
+                        echo "No comments found!";
+                    }else{
+                ?>
                 <div class="media">
                     <a class="pull-left" href="#">
                         <img class="media-object" src="http://placehold.it/64x64" alt="">
@@ -134,6 +139,10 @@
                         <?php echo $comment_content; ?>
                     </div>
                 </div>
+
+                <?php 
+                    }
+                ?>
 
             </div>
 

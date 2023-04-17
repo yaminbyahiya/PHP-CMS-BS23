@@ -86,7 +86,8 @@
         </thead>
         <tbody>
             <?php
-                $query = "SELECT * FROM posts ORDER BY id DESC";
+                // $query = "SELECT * FROM posts ORDER BY id DESC";
+                $query = "SELECT posts.id, posts.post_content, posts.post_author, posts.post_user, posts.post_title, posts.category_id, posts.post_status, posts.post_image, posts.post_tags, posts.post_comment_count, posts.post_date, posts.post_views_count, category.cat_id, category.cat_title FROM posts LEFT JOIN category ON posts.category_id = category.cat_id ORDER BY posts.id DESC";
                 $result = mysqli_query($connection, $query);
                 if(!$result){
                     die("Query Failed". mysqli_error($connection));
@@ -103,19 +104,21 @@
                         $post_comment_count=$row["post_comment_count"];
                         $post_status=$row["post_status"];
                         $post_views_count=$row["post_views_count"];
+                        $category_title = $row["cat_title"];
+                        $category_id=$row["cat_id"];
                         echo "<tr>";
                         echo "<td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='$id'></td>";
                         echo "<td>$id</td>";
                         echo "<td>$post_author</td>";
                         echo "<td>$post_title</td>";
 
-                        $query_cat_id="SELECT * FROM category WHERE cat_id=$cat_id";
-                        $result_cat_id=mysqli_query($connection, $query_cat_id);
-                        while($row=mysqli_fetch_assoc($result_cat_id)){
-                            $cat_id=$row["cat_id"];
-                            $cat_title=$row["cat_title"];
-                            echo "<td>$cat_title</td>";
-                        }
+                        // $query_cat_id="SELECT * FROM category WHERE cat_id=$cat_id";
+                        // $result_cat_id=mysqli_query($connection, $query_cat_id);
+                        // while($row=mysqli_fetch_assoc($result_cat_id)){
+                        //     $cat_id=$row["cat_id"];
+                        //     $cat_title=$row["cat_title"];
+                            echo "<td>$category_title</td>";
+                        //}
 
                         echo "<td>$post_status</td>";
                         echo "<td><img src='../images/$post_image' alt='Post Image'></td>";

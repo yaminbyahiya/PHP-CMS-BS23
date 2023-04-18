@@ -6,8 +6,8 @@
     
     <?php 
         include "includes/navigation.php"; //importing navbar
-        include "./admin/functions.php";
-        $count_users = users_online();
+        include "./admin/functions.php"; //importing functions
+        $count_users = users_online(); //displays the number of active users
 
     ?>
 
@@ -19,7 +19,7 @@
             <!-- Blog Entries Column -->
             <div class="col-md-8">
                 <?php
-                    if(isset($_GET["page"])){
+                    if(isset($_GET["page"])){ //GET request for pagination
                         $page = $_GET["page"];
                     }else{
                         $page = "";
@@ -29,25 +29,25 @@
                     }else{
                         $page_1=($page*5)-5;
                     }
-                    if(isset($_SESSION["user_role"]) && $_SESSION["user_role"]=="admin"){
+                    if(isset($_SESSION["user_role"]) && $_SESSION["user_role"]=="admin"){ //Restricting draft posts only to admin through session
                         $post_count_query = "SELECT * FROM posts";
                     }else{
                         $post_count_query = "SELECT * FROM posts WHERE post_status='Published'";
                     }
-                    $find_count = mysqli_query($connection, $post_count_query);
-                    $count = mysqli_num_rows($find_count);
+                    $find_count = mysqli_query($connection, $post_count_query); //Query to find number of posts
+                    $count = mysqli_num_rows($find_count); //Number of posts
                     if($count < 1){
                         echo "<h1 class='text-center'>No Post Found</h1>";
                     }
-                    $count = ceil($count / 5);
+                    $count = ceil($count / 5); //Calculating number of pages for the posts
                     if(isset($_SESSION["user_role"]) && $_SESSION["user_role"]=="admin"){
-                        $query = "SELECT * FROM posts LIMIT $page_1,5";
+                        $query = "SELECT * FROM posts LIMIT $page_1,5"; //Selecting posts according to page number for admin
                     }else{
-                        $query = "SELECT * FROM posts WHERE post_status='Published' LIMIT $page_1,5";
+                        $query = "SELECT * FROM posts WHERE post_status='Published' LIMIT $page_1,5"; //Selecting posts according to page number for subscriber
                     }
                     // $query = "SELECT * FROM posts WHERE post_status='Published' LIMIT $page_1,5";
                     $result = mysqli_query($connection, $query);
-                    while($row = mysqli_fetch_assoc($result)){
+                    while($row = mysqli_fetch_assoc($result)){ //Storing all the retrieved values from DB to variables
                         $post_id=$row["id"];
                         $post_title = $row["post_title"];
                         $post_author = $row["post_author"];
@@ -60,9 +60,10 @@
                             Page Heading
                             <small>Secondary Text</small>
                         </h1>
+                        <!-- Displaying active users -->
                         <h1><?php echo $count_users; ?></h1>
 
-                        <!-- First Blog Post -->
+                        <!-- Displaying all posts through while loop -->
                         <h2>
                             <a href="post.php?p_id=<?php echo $post_id ?>"><?php echo $post_title ?></a>
                         </h2>
@@ -89,7 +90,7 @@
 
             <!-- Blog Sidebar Widgets Column -->
             <?php
-                include "includes/sidebar.php";
+                include "includes/sidebar.php"; //importing sidebar on homepage
             ?>
 
         </div>
@@ -99,7 +100,7 @@
         
         <!-- Footer -->
         <ul class="pager">
-            <?php 
+            <?php //Pagination
                 for($i=1;$i<=$count;$i++){
                     if($i==$page){
                         echo "<li><a class='active_link' href='index.php?page=$i'>$i</a></li>";
@@ -111,5 +112,5 @@
         </ul>
 
 <?php 
-    include "includes/footer.php";
+    include "includes/footer.php"; //importing footer on homepage
 ?>

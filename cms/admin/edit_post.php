@@ -83,10 +83,10 @@
             ?>
         </select>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="post_status">Post Status</label>
-        <input value="<?php echo $post_status ?>" type="text" class="form-control" name="post_status">
-    </div>
+        <input value="<//?php echo $post_status ?>" type="text" class="form-control" name="post_status">
+    </div> -->
     <div class="form-group">
         <label for="post_image">Post Image</label>
         <img src=<?php echo "../images/$post_image" ?> alt="Image">

@@ -58,7 +58,7 @@
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="form-wrap">
                 <h1>Register</h1>
-                <!-- <h6><?php echo $message ?></h6> -->
+                <!-- <h6><//?php echo $message ?></h6> -->
                     <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
                         <div class="form-group">
                             <label for="username" class="sr-only">username</label>

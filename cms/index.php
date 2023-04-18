@@ -1,11 +1,11 @@
 <?php 
-    include "includes/db.php";
-    include "includes/header.php";
+    include "includes/db.php"; //importing database connection
+    include "includes/header.php"; //importing header module
 ?>
     <!-- Navigation -->
     
     <?php 
-        include "includes/navigation.php";
+        include "includes/navigation.php"; 
         include "./admin/functions.php";
         $count_users = users_online();
 

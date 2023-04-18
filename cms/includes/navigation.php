@@ -40,7 +40,7 @@
                     <li>
                         <a href="contact.php">Contact</a>
                     </li>
-                    <li class='<?php echo $registration_class; ?>'>;
+                    <li class='<?php echo $registration_class; ?>'>
                         <a href="registration.php">Registration</a>
                     </li>
                     <?php 

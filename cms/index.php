@@ -5,7 +5,7 @@
     <!-- Navigation -->
     
     <?php 
-        include "includes/navigation.php"; 
+        include "includes/navigation.php"; //importing navbar
         include "./admin/functions.php";
         $count_users = users_online();
 

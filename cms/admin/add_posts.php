@@ -1,5 +1,5 @@
 <?php
-    if(isset($_POST["create_post"])){
+    if(isset($_POST["create_post"])){ //POST catch for new post form
         $post_title=$_POST["title"];
         $post_cat_id=$_POST["post_category"];
         $post_author=$_POST["author"];
@@ -18,12 +18,13 @@
         echo "<p class='bg-success'>Post Updated. <a href='../post.php?p_id=$add_post_id'>View Post</a> or <a href='posts.php?source=add_post'>Add More Posts</a></p>";
     }
 ?>
-
+<!-- Form for creating new post -->
 <form action="" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="title">Post Title</label>
         <input type="text" class="form-control" name="title">
     </div>
+    <!-- Dropdown for category selection -->
     <div class="form-group">
         <label for="category">Category</label>
         <select name="post_category" id="">
@@ -41,7 +42,7 @@
     <!-- <div class="form-group">
         <label for="users">Users</label>
         <select name="post_users" id="">
-            <?php
+            <?php 
                 $query="SELECT * FROM users";
                 $result=mysqli_query($connection, $query);
                 while($row=mysqli_fetch_assoc($result)){
@@ -52,10 +53,12 @@
             ?>
         </select>
     </div> -->
+    <!-- Author Name Input -->
     <div class="form-group">
         <label for="post_author">Post Author</label>
         <input type="text" class="form-control" name="author">
     </div>
+    <!-- Dropdown for post status -->
     <div class="form-group">
         <select name="post_status" id="">
             <option value="Draft">Post Status</option>
@@ -63,14 +66,17 @@
             <option value="Draft">Draft</option>
         </select>
     </div>
+    <!-- Image Input -->
     <div class="form-group">
         <label for="post_image">Post Image</label>
         <input type="file" name="image"> 
     </div>
+    <!-- Post Tags Input -->
     <div class="form-group">
         <label for="post_tags">Post Tags</label>
         <input type="text" class="form-control" name="post_tags">
     </div>
+    <!-- Post Content Input -->
     <div class="form-group">
         <label for="post_content">Post Content</label>
         <textarea class="form_control" name="post_content" id="body" cols="30" rows="10"></textarea>

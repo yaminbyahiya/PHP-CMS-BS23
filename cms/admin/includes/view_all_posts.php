@@ -1,6 +1,6 @@
 <?php
-    include ("./includes/delete_modal.php");
-    if(isset($_POST["checkBoxArray"])){
+    include ("./includes/delete_modal.php"); //importing delete modal for popup delete promt
+    if(isset($_POST["checkBoxArray"])){ //POST catch for multi checkbox action
         foreach($_POST["checkBoxArray"] as $checkBoxValue){
             $bulk_options=$_POST["bulk_options"];
             switch($bulk_options){
@@ -50,7 +50,7 @@
         }
     }
 ?>
-
+<!-- Selector for multi checkbox action -->
 <form action="" method="post">
     <table class="table table-bordered table-hover">
         <div id="bulkOptionsContainer" class="col-xs-4">
@@ -66,6 +66,7 @@
             <input type="submit" name="submit" class="btn btn-success" value="Apply">
             <a class="btn btn-primary" href="posts.php?source=add_post">Add New</a>
         </div>
+        <!-- Table of all posts -->
         <thead>
             <tr>
                 <th><input id="selectAllBoxes" type="checkbox"></th>
@@ -92,7 +93,7 @@
                 if(!$result){
                     die("Query Failed". mysqli_error($connection));
                 }else{
-                    while($row = mysqli_fetch_assoc($result)){
+                    while($row = mysqli_fetch_assoc($result)){ //Retrieving all post data from DB and storing in variables
                         $id=$row["id"];
                         $cat_id=$row["category_id"];
                         $post_author=$row["post_author"];
@@ -138,6 +139,7 @@
                         echo "<td><a class='btn btn-success' href='../post.php?p_id=$id'>View Post</a></td>";
                         echo "<td><a class='btn btn-info' href='./posts.php?source=edit_post&p_id=$id'>Edit</a></td>";
             ?>
+            <!-- Delete button for posts -->
             <form action="" method="post">
                 <input type="hidden" name="post_id" value="<?php echo $id ?>">
                 <td>
@@ -154,7 +156,7 @@
 
             ?>
             <?php
-                if(isset($_POST["delete"])){
+                if(isset($_POST["delete"])){ //POST catch for post delete button
                     $delete_post_id=$_POST["post_id"];
                     $query="DELETE FROM posts WHERE id='$delete_post_id'";
                     $result = mysqli_query($connection, $query);
@@ -171,7 +173,7 @@
         </tbody>
     </table>
 </form>
-
+<!-- Popup for post delete prompt -->
 <script>
     $(document).ready(function(){
         $(".delete_link").on('click',function(){

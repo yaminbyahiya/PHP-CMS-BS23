@@ -31,13 +31,15 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                 <?php 
-                                    $post_counts = recordCount("posts") //Displaying number of posts
+                                    $post_counts = recordCount("posts") //Retrieving number of posts
                                 ?>
+                                <!-- Displaying number of posts -->
                                 <div class='huge'><?php echo $post_counts ?></div>
                                         <div>Posts</div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Link to View All Post Page -->
                             <a href="./posts.php">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
@@ -56,13 +58,15 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <?php 
-                                            $comment_count = recordCount("comments") //Displaying number of comments
+                                            $comment_count = recordCount("comments") //Retrieving number of comments
                                         ?>
+                                    <!-- Displaying number of comments -->
                                     <div class='huge'><?php echo "$comment_count" ?></div>
                                     <div>Comments</div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Link to Comments Page -->
                             <a href="./comments.php">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
@@ -81,13 +85,15 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <?php
-                                            $users_count = recordCount("users"); //Displaying number of users
+                                            $users_count = recordCount("users"); //Retrieving number of users
                                         ?>
+                                    <!-- Displaying number of users -->
                                     <div class='huge'><?php echo $users_count ?></div>
                                         <div> Users</div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Link to Users Page -->
                             <a href="./users.php">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
@@ -106,13 +112,15 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <?php 
-                                            $category_count = recordCount("category"); //Displaying numer of categories
+                                            $category_count = recordCount("category"); //Retrieving numer of categories
                                         ?>
+                                        <!-- Displaying number of categories -->
                                         <div class='huge'><?php echo $category_count ?></div>
                                         <div>Categories</div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Link to Categories Page -->
                             <a href="./categories.php">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
@@ -126,29 +134,29 @@
                 <?php
                     // $query_published_post = "SELECT * FROM posts WHERE post_status = 'Published'";
                     // $select_published_post = mysqli_query($connection, $query_published_post);
-                    $select_published_post_count = checkStatus("posts","post_status","Published");
+                    $select_published_post_count = checkStatus("posts","post_status","Published"); //Retrieving published post count from DB
                     // $query_post = "SELECT * FROM posts WHERE post_status = 'Draft'";
                     // $select_draft_post = mysqli_query($connection, $query_post);
-                    $select_draft_post_count = checkStatus("posts","post_status","Draft");
+                    $select_draft_post_count = checkStatus("posts","post_status","Draft"); //Retrieving draft post count from DB
                     // $query_comment = "SELECT * FROM comments WHERE comment_status = 'unapproved'";
                     // $select_unapproved_comment = mysqli_query($connection, $query_comment);
-                    $select_unapproved_comment_count = checkStatus("comments","comment_status","unapproved");
+                    $select_unapproved_comment_count = checkStatus("comments","comment_status","unapproved");// Retrieving comments from DB
                     // $query_sub = "SELECT * FROM users WHERE user_role = 'subscriber'";
                     // $select_sub_users = mysqli_query($connection, $query_sub);
-                    $select_unapproved_sub_count = checkStatus("users","user_role","subscriber");
+                    $select_unapproved_sub_count = checkStatus("users","user_role","subscriber");//Retrieving subscribers count from DB
                 ?>
+                <!-- Displaying visual graphical information -->
                 <div class="row">
                 <script type="text/javascript">
                     google.charts.load('current', {'packages':['bar']});
                     google.charts.setOnLoadCallback(drawChart);
-
                     function drawChart() {
                         var data = google.visualization.arrayToDataTable([
                         ['Data', 'Count'],
                         <?php
                             $element_text=['All Posts', 'Active Posts', 'Draft Posts', 'Categories', 'Users', 'Subscribers', 'Comments', 'Pending Comments'];
                             $element_count=[$post_counts, $select_published_post_count,  $select_draft_post_count, $category_count, $users_count, $select_unapproved_sub_count, $comment_count, $select_unapproved_comment_count];
-                            for($i=0; $i<7; $i++){
+                            for($i=0; $i<sizeof($element_text); $i++){
                                 echo "['$element_text[$i]'" . ",". "$element_count[$i]],";
                             }
                         ?>
@@ -176,5 +184,5 @@
         <!-- /#page-wrapper -->
 
 <?php 
-    include "includes/footer.php";
+    include "includes/footer.php"; //importing footer for admin homepage
 ?>

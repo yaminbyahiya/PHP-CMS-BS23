@@ -1,9 +1,11 @@
-<?php include "includes/header.php";
+<?php include "includes/header.php"; //importing header on admin page
 ?>
     <div id="wrapper">
 
         <!-- Navigation -->
-        <?php include "includes/navigation.php"; ?>
+        <?php 
+            include "includes/navigation.php"; //importing navbar on admin page
+        ?>
 
         <div id="page-wrapper">
 
@@ -14,7 +16,7 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Welcome to Admin
-                            <small><?php echo $_SESSION["username"]; ?></small>
+                            <small><?php echo $_SESSION["username"]; //Displaying name of the logged in user ?></small> 
                         </h1>
                     </div>
                 </div>
@@ -29,7 +31,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                 <?php 
-                                    $post_counts = recordCount("posts")
+                                    $post_counts = recordCount("posts") //Displaying number of posts
                                 ?>
                                 <div class='huge'><?php echo $post_counts ?></div>
                                         <div>Posts</div>
@@ -54,7 +56,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <?php 
-                                            $comment_count = recordCount("comments")
+                                            $comment_count = recordCount("comments") //Displaying number of comments
                                         ?>
                                     <div class='huge'><?php echo "$comment_count" ?></div>
                                     <div>Comments</div>
@@ -79,7 +81,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <?php
-                                            $users_count = recordCount("users");
+                                            $users_count = recordCount("users"); //Displaying number of users
                                         ?>
                                     <div class='huge'><?php echo $users_count ?></div>
                                         <div> Users</div>
@@ -104,7 +106,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <?php 
-                                            $category_count = recordCount("category");
+                                            $category_count = recordCount("category"); //Displaying numer of categories
                                         ?>
                                         <div class='huge'><?php echo $category_count ?></div>
                                         <div>Categories</div>

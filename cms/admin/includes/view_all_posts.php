@@ -121,7 +121,7 @@
                         //}
 
                         echo "<td>$post_status</td>";
-                        echo "<td><img src='../images/$post_image' alt='Post Image'></td>";
+                        echo "<td><img src='../images/$post_image' width='100px' alt='Post Image'></td>";
                         // echo "<td>$post_image</td>";
                         echo "<td>$post_tags</td>";
                         $query = "SELECT * FROM comments WHERE comment_post_id=$id";

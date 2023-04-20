@@ -55,10 +55,10 @@
                     }
                     // echo "<td>$post_image</td>";
                     echo "<td>$comment_date</td>";
-                    echo "<td><a href='./comments.php?approve=$comment_id'>Approve</a></td>";
-                    echo "<td><a href='./comments.php?unapprove=$comment_id'>Unapprove</a></td>";
+                    echo "<td><a class='btn btn-success' href='./comments.php?approve=$comment_id'>Approve</a></td>";
+                    echo "<td><a class='btn btn-info' href='./comments.php?unapprove=$comment_id'>Unapprove</a></td>";
                     // echo "<td><a href='./posts.php?source=edit_post&p_id='>Edit</a></td>";
-                    echo "<td><a href='./comments.php?delete=$comment_id'>Delete</a></td>";
+                    echo "<td><a class='btn btn-danger' href='./comments.php?delete=$comment_id'>Delete</a></td>";
                 echo "</tr>";
                 }
             }

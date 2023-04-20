@@ -1,7 +1,7 @@
 <?php 
-    include "includes/header.php";
+    include "includes/header.php"; //importing header section for profile page
     // include "functions.php";
-    if(isset($_SESSION["username"])){
+    if(isset($_SESSION["username"])){ //Catches a GET request which retrieves all info of a specific user from DB using SQL query
         $username=$_SESSION["username"];
         $query="SELECT * FROM users WHERE user_name='$username'";
         $username_query_result=mysqli_query($connection, $query);
@@ -19,7 +19,7 @@
             $user_role=$row["user_role"];
         }
     }
-    if(isset($_POST["edit_user"])){
+    if(isset($_POST["edit_user"])){ //Catches a POST request which stores edited info of a specific user on DB using SQL query
         $user_name=$_POST["user_name"];
         $user_firstname=$_POST["user_firstname"];
         $user_lastname=$_POST["user_lastname"];
@@ -47,6 +47,7 @@
                             Welcome to Admin
                             <small><?php echo $_SESSION["username"]; ?></small>
                         </h1>
+                        <!-- User Update Form -->
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="post_author">Username</label>
@@ -104,5 +105,5 @@
         <!-- /#page-wrapper -->
 
 <?php 
-    include "includes/footer.php"
+    include "includes/footer.php" //imports footer section for profile page
 ?>

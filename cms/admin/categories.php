@@ -46,6 +46,7 @@
                                         <th>ID</th>
                                         <th>Category</th>
                                         <th>Delete</th>
+                                        <th>Update</th>
                                     </tr>
                                 </thead>
                                 <tbody>

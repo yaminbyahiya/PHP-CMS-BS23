@@ -68,8 +68,8 @@
                 echo "<tr>";
                 echo "<th>$cat_id</th>";
                 echo "<th>$cat_title</th>";
-                echo "<th><a href='categories.php?delete=$cat_id'>Delete</a></th>";
-                echo "<th><a href='categories.php?update=$cat_id'>Update</a></th>";
+                echo "<th><a class='btn btn-danger' href='categories.php?delete=$cat_id'>Delete</a></th>";
+                echo "<th><a class='btn btn-info' href='categories.php?update=$cat_id'>Update</a></th>";
                 echo "</tr>";
             }
         }

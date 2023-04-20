@@ -1,5 +1,5 @@
 <?php
-    if(isset($_POST["create_user"])){
+    if(isset($_POST["create_user"])){ //Catches a POST request and adds a new user on DB using SQL query
         // $user_id=$_POST["user_id"];
         $user_firstname=$_POST["user_firstname"];
         $user_lastname=$_POST["user_lastname"];
@@ -9,7 +9,7 @@
         $user_name=$_POST["user_name"];
         $user_email=$_POST["user_email"];
         $user_password=$_POST["user_password"];
-        $user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
+        $user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10)); //Used to encrypt password
         // $post_date=date("d-m-y");
         // $post_comment_count=4;
         // move_uploaded_file($post_image_temp, "../images/$post_image");
@@ -19,7 +19,7 @@
         echo "User Created: "."<a href='users.php'>View Users</a>";
     }
 ?>
-
+<!-- New User Creation Form -->
 <form action="" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="post_author">Username</label>

@@ -1,11 +1,13 @@
 <?php 
-    include "includes/header.php";
+    include "includes/header.php"; //importing header section for Categories page
     // include "functions.php";
 ?>
     <div id="wrapper">
 
         <!-- Navigation -->
-        <?php include "includes/navigation.php"; ?>
+        <?php 
+            include "includes/navigation.php"; //importing navbar for Categories page
+        ?>
 
         <div id="page-wrapper">
 
@@ -19,7 +21,7 @@
                             <small>Author</small>
                         </h1>
                         <?php
-                            insert_category();
+                            insert_category(); //Catches POST request of SQL query for storing new category on DB
                         ?>
                         <div class="col-xs-6">
                             <form action="" method="post">
@@ -34,11 +36,12 @@
 
                             <?php
                                 if(isset($_GET["update"])){
-                                    include "includes/update_category.php";
+                                    include "includes/update_category.php"; //imports category update module if a GET request is received
                                 }
                             ?>
                             
                         </div>
+                        <!-- Category list table -->
                         <div class="col-xs-6">
                             <table class="table table-bordered table-hover">
                                 <thead>
@@ -51,13 +54,11 @@
                                 </thead>
                                 <tbody>
                                     <?php 
-                                        findAllCategories();
+                                        findAllCategories(); //SQL query retrieves all category details from DB and displays as table data
                                     ?>
                                     <?php
-                                        deleteCategory();
+                                        deleteCategory(); //Catches GET request of SQL query for deleting a specific category using category id
                                     ?>
-                                    <!-- <th>Baseball Category</th>
-                                    <th>Basketball Category</th> -->
                                 </tbody>
                             </table>
                         </div>
@@ -72,5 +73,5 @@
         <!-- /#page-wrapper -->
 
 <?php 
-    include "includes/footer.php"
+    include "includes/footer.php" //imports footer section for the categories page
 ?>

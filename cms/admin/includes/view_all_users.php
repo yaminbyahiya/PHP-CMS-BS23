@@ -13,11 +13,11 @@
     <tbody>
         <?php
             $query = "SELECT * FROM users";
-            $result_users = mysqli_query($connection, $query);
+            $result_users = mysqli_query($connection, $query); //Retrieves all user data from DB
             if(!$result_users){
                 die("Query Failed". mysqli_error());
             }else{
-                while($row = mysqli_fetch_assoc($result_users)){
+                while($row = mysqli_fetch_assoc($result_users)){ //Stores each user info on related variables and displays the info inside table
                     $user_id=$row["user_id"];
                     $username=$row["user_name"];
                     $user_password=$row["user_password"];
@@ -62,7 +62,7 @@
             
         ?>
         <?php
-            if(isset($_GET["delete"])){
+            if(isset($_GET["delete"])){ //Catches a GET request and deletes a specific user on the basis of user id
                 if(isset($_SESSION["user_role"])){
                     if($_SESSION["user_role"]=="admin"){
                         $delete_user_id=$_GET["delete"];
@@ -72,13 +72,13 @@
                     }
                 }
             }
-            if(isset($_GET["changetoadmin"])){
+            if(isset($_GET["changetoadmin"])){ //Catches a GET request and changes a subscriber to admin using SQL query
                 $admin_user_id=$_GET["changetoadmin"];
                 $query="UPDATE users SET user_role='admin' WHERE user_id='$admin_user_id'";
                 $result = mysqli_query($connection, $query);
                 header("Location: ./users.php");
             }
-            if(isset($_GET["changetosub"])){
+            if(isset($_GET["changetosub"])){ //Catches a GET request and changes a admin to subscriber using SQL query
                 $sub_user_id=$_GET["changetosub"];
                 $query="UPDATE users SET user_role='subscriber' WHERE user_id='$sub_user_id'";
                 $result = mysqli_query($connection, $query);

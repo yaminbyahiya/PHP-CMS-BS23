@@ -39,6 +39,22 @@
             die("Query Failed ". mysqli_error($connection));
         }
     }
+    // function insert_category(){
+    //     global $connection;
+    //     if(isset($_POST["submit"])){
+    //         $cat_title=$_POST["cat_title"];
+    //         if(empty($cat_title)){
+    //             echo "All Fields Must be Filled!";
+    //         }else{
+    //             $query = "INSERT INTO category(cat_title) VALUE('$cat_title')";
+    //             $cat_add_result = mysqli_query($connection, $query);
+
+    //             if(!$cat_add_result){
+    //                 die("Query Failed ". mysqli_error());
+    //             }
+    //         }
+    //     }
+    // }
     function insert_category(){
         global $connection;
         if(isset($_POST["submit"])){
@@ -46,11 +62,12 @@
             if(empty($cat_title)){
                 echo "All Fields Must be Filled!";
             }else{
-                $query = "INSERT INTO category(cat_title) VALUE('$cat_title')";
-                $cat_add_result = mysqli_query($connection, $query);
+                $stmt = mysqli_prepare($connection, "INSERT INTO category(cat_title) VALUE(?)");
+                mysqli_stmt_bind_param($stmt, 's', $cat_title);
+                mysqli_stmt_execute($stmt);
 
-                if(!$cat_add_result){
-                    die("Query Failed ". mysqli_error());
+                if(!$stmt){
+                    die("Query Failed ". mysqli_error($connection));
                 }
             }
         }
@@ -194,5 +211,8 @@
             header("Location: ../index.php");
             // redirect("/cms/index.php");
         }
+    }
+    function redirect($location){
+        return header("Location:".$location);
     }
 ?>

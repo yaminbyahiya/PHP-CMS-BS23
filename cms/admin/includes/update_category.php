@@ -18,13 +18,23 @@
                                     ?>
                                     <input value="<?php if(isset($cat_title)) echo "$cat_title"; ?>" type="text" class="form-control" name="cat_title">
                                     <?php
+                                        // if(isset($_POST["update_query"])){
+                                        //     $cat_title = $_POST["cat_title"];
+                                        //     $query = "UPDATE category SET cat_title='$cat_title' WHERE cat_id='$cat_id'";
+                                        //     $update_query = mysqli_query($connection, $query);
+                                        //     if(!$update_query){
+                                        //         die("Query Failed ". mysqli_error());
+                                        //     }
+                                        // }
                                         if(isset($_POST["update_query"])){
                                             $cat_title = $_POST["cat_title"];
-                                            $query = "UPDATE category SET cat_title='$cat_title' WHERE cat_id='$cat_id'";
-                                            $update_query = mysqli_query($connection, $query);
-                                            if(!$update_query){
-                                                die("Query Failed ". mysqli_error());
+                                            $stmt = mysqli_prepare($connection, "UPDATE category SET cat_title=? WHERE cat_id=?");
+                                            mysqli_stmt_bind_param($stmt, "si", $cat_title, $cat_id);
+                                            mysqli_stmt_execute($stmt);
+                                            if(!$stmt){
+                                                die("Query Failed ". mysqli_error($connection));
                                             }
+                                            redirect("categories.php");
                                         }
                                     ?>
                                 </div>

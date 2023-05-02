@@ -84,6 +84,7 @@
                         <hr>
                     <?php
                     }
+                    mysqli_stmt_close($stmt);
                     ?>
 
                 

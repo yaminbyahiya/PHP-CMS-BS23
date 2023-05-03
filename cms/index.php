@@ -5,8 +5,8 @@
     <!-- Navigation -->
     
     <?php 
-        include "includes/navigation.php"; //importing navbar
         include "./admin/functions.php"; //importing functions
+        include "includes/navigation.php"; //importing navbar
         $count_users = users_online(); //displays the number of active users
 
     ?>

@@ -35,9 +35,25 @@
                             echo "<li class='$category_class'> <a href='category.php?category=$cat_id'> {$category_title} </a> </li>";
                         }
                     ?>
-                    <li>
-                        <a href="admin/">Admin Panel</a>
-                    </li>
+                    <?php
+                        if(isLoggedIn()){
+                            ?>
+                            <li>
+                                <a href="admin/">Admin Panel</a>
+                            </li>
+                            <li>
+                                <a href="includes/logout.php">Logout</a>
+                            </li>
+                        <?php
+                        }
+                        else{
+                            ?>
+                            <li>
+                                <!-- <a href="./includes/login.php">Login</a> -->
+                            </li>
+                            <?php
+                        }
+                    ?>
                     <li>
                         <a href="contact.php">Contact</a>
                     </li>
